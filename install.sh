@@ -6,13 +6,13 @@ case "$os" in
     # Debian/Ubuntu
     if command -v apt-get &> /dev/null; then
       sudo apt update
-      sudo apt install -y unzip git jq qrencode imagemagick catimg
+      sudo apt install -y unzip git jq
     # Red Hat/CentOS
     elif command -v yum &> /dev/null; then
-      sudo yum -y install unzip git jq qrencode ImageMagick catimg
+      sudo yum -y install unzip git jq
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes unzip git jq qrencode ImageMagick catimg
+      sudo dnf install --assumeyes unzip git jq
     else
       echo "Unsupported Linux distribution."
     fi
@@ -23,9 +23,6 @@ case "$os" in
       brew install unzip
       brew install git
       brew install jq
-      brew install qrencode
-      brew install imagemagick
-      brew install catimg
     else
       echo "Homebrew is not installed. Please install Homebrew first."
       exit 1
@@ -52,10 +49,10 @@ env_file=".env"
 show_form() {
   username=$(whiptail --inputbox "Enter IIT username (without @hawk.iit.edu):" 8 50 "$USERNAME" 3>&1 1>&2 2>&3)
   password=$(whiptail --passwordbox "Enter IIT password:" 8 50 3>&1 1>&2 2>&3)
-  sender=$(whiptail --inputbox "(OPTIONAL) Enter sender email address (for email notifications)\nPress enter/return to skip:" 8 50 "$SENDER" 3>&1 1>&2 2>&3)
+  sender=$(whiptail --inputbox "(OPTIONAL) Enter sender email address (for email notifications)\nPress enter/return to skip:" 8 50 3>&1 1>&2 2>&3)
 
   if [ -n "$sender" ]; then
-      apppass=$(whiptail --inputbox "Enter APPPASS:" 8 50 "$APPPASS" 3>&1 1>&2 2>&3 || echo "")
+      apppass=$(whiptail --inputbox "Enter APPPASS:" 8 50 3>&1 1>&2 2>&3 || echo "")
   fi
 }
 source "$env_file"
@@ -74,8 +71,4 @@ echo "SENDER: ${sender:-Not provided}"
 echo "APPPASS: ${apppass:-Not provided}"
 echo "Your door can be opened by visiting the following link: http://$ip_address:5000/open_sesame"
 echo "Download the Apple Shortcut to your iPhone using the following URL:"
-qrencode -o unlockDoorShortcut.png "https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut"
-convert unlockDoorShortcut.png -resize 25% resized_unlockDoorShortcut.png
-catimg resized_unlockDoorShortcut.png
-rm unlockDoorShortcut.png resized_unlockDoorShortcut.png
-echo "Completed installation. Enjoy!"
+echo "https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut"
