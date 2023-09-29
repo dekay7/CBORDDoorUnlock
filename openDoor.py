@@ -1,5 +1,4 @@
 import os
-import requests
 from playwright.sync_api import sync_playwright
 from emailNotification import send_email
 import datetime
@@ -16,40 +15,23 @@ recipient = [f"{username}@hawk.iit.edu"]
 # Url's and variables
 login_url = "https://cardadmin.iit.edu/login/ldap.php"
 open_door_url = "https://cardadmin.iit.edu/student/openmydoor.php"
-headers = {
-    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
-}
-
-# Initialize a session for requests
-session = requests.Session()
 
 with sync_playwright() as p:
+    # Create new playwright browser and act like a mobile user-agent
     browser = p.chromium.launch()
-    context = browser.new_context()
+    context = browser.new_context(user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1")
     page = context.new_page()
-
-    # Initial get request to get __sesstok
+    
+    # Visit login page
     page.goto(login_url, wait_until='domcontentloaded')
 
     # Login using Playwright
     page.fill('input[name="user"]', username)
     page.fill('input[name="pass"]', password)
     page.click('input[type="submit"]')
-    page.wait_for_load_state("load", timeout=120000)
-
-    # Extract cookies from Playwright context and set them in the requests session
-    cookies = page.context.cookies()
-    for cookie in cookies:
-        session.cookies.set(cookie['name'], cookie['value'])
-
-    # Post request to open the door using the requests session
-    payload = {
-        'doorType': '1',
-        'answeredYes': 'yes',
-        '__sesstok': page.evaluate("() => window.__sesstok")
-    }
-    open_door_response = session.post(open_door_url, headers=headers, data=payload)
-
+    page.wait_for_load_state("load", timeout=None)
+    page.goto(open_door_url, wait_until='domcontentloaded')
+    page.click('input[type="submit"]')
     browser.close()
 
 # Send email notification

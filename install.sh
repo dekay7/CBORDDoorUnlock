@@ -47,6 +47,7 @@ pip3 install -r requirements.txt
 playwright install
 deactivate
 current_dir=$(pwd)
+sed -i "s|'/root/open_door/venv/bin/python3'|'$current_dir/venv/bin/python3'|" openDoorServer.py
 sed -i "s|'/root/open_door/openDoor.py'|'$current_dir/openDoor.py'|" openDoorServer.py
 sed -i "s|'WorkingDirectory=/root/open_door/'|WorkingDirectory=$current_dir|" openDoor.service
 sed -i "s|ExecStart=/root/open_door/venv/bin/python3 openDoorServer.py|ExecStart=$current_dir/venv/bin/python3 openDoorServer.py|" openDoor.service

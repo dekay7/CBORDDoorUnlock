@@ -4,7 +4,7 @@ Any malicious use of this program is not the responsibility of the author. By do
 
 Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
-## Configuration:
+## Manual Configuration:
 Rename `example.env` to `.env` using the following command:
 ```bash
 sudo mv example.env .env
@@ -51,7 +51,6 @@ For example, http://192.168.0.50:5000/open_sesame.
 ### If using `openDoorCookies.py`:
 Using `nano`, `vim`, or any other text editor, replace the following values for their appropriate keys with the associated cookies: 
 - For `"PHPSESSID":`, replace "php_sess_id" with the appropriate cookie value
-- For `"CsgUserData":`, replace "csg_user_data" with the appropriate cookie value
 
 ## Apple Shortcut Configuration:
 Download the `unlockDoor.shortcut` file to your iOS device using/clicking the QR code or link below: <br>
