@@ -40,6 +40,7 @@ wait $1
 unzip open_door.zip -d open_door
 rm open_door.zip
 cd open_door/
+sed -i "s|ExecStart=/usr/bin/python3 /root/open_door/openDoorServer.py|ExecStart=/usr/bin/python3 $current_dir/openDoorServer.py|" openDoor.service
 sudo mv openDoor.service /etc/systemd/system
 sudo systemctl enable openDoor.service
 sudo systemctl start openDoor.service
