@@ -30,8 +30,14 @@ with sync_playwright() as p:
     page.fill('input[name="pass"]', password)
     page.click('input[type="submit"]')
     page.wait_for_load_state("load", timeout=None)
+
+    # Visit open door page
     page.goto(open_door_url, wait_until='domcontentloaded')
+
+    # Open door
     page.click('input[type="submit"]')
+
+    # End browser session
     browser.close()
 
 # Send email notification

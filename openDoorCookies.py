@@ -1,4 +1,3 @@
-import requests
 from playwright.sync_api import sync_playwright
 
 # Url's and variables
@@ -8,9 +7,6 @@ open_door_url = "https://cardadmin.iit.edu/student/openmydoor.php"
 cookies = [
     {"name": "PHPSESSID", "value": "php_sess_id", "url": "https://cardadmin.iit.edu"},
 ]
-
-# Initialize a session for requests
-session = requests.Session()
 
 with sync_playwright() as p:
     browser = p.chromium.launch()
