@@ -6,13 +6,13 @@ case "$os" in
     # Debian/Ubuntu
     if command -v apt-get &> /dev/null; then
       sudo apt update
-      sudo apt install -y unzip git jq
+      sudo apt install -y unzip git jq python3 python3-pip
     # Red Hat/CentOS
     elif command -v yum &> /dev/null; then
-      sudo yum -y install unzip git jq
+      sudo yum -y install unzip git jq python3 python3-pip
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes unzip git jq
+      sudo dnf install --assumeyes unzip git jq python3 python3-pip
     else
       echo "Unsupported Linux distribution."
     fi
@@ -23,6 +23,7 @@ case "$os" in
       brew install unzip
       brew install git
       brew install jq
+      brew install python
     else
       echo "Homebrew is not installed. Please install Homebrew first."
       exit 1
@@ -33,6 +34,7 @@ case "$os" in
     exit 1
     ;;
 esac
+pip install requests_html bs4 python-dotenv Flask
 release_info=$(curl -s "https://api.github.com/repos/dekay7/CBORDDoorUnlock/releases/latest")
 download_url=$(echo "$release_info" | jq -r '.assets[0].browser_download_url')
 wget --progress=bar:force:noscroll -O open_door.zip "$download_url"
@@ -41,6 +43,7 @@ unzip open_door.zip -d open_door
 rm open_door.zip
 cd open_door/
 current_dir=$(pwd)
+sed -i "s|'/root/open_door/openDoor.py'|'$current_dir/openDoor.py'|" openDoorServer.py
 sed -i "s|ExecStart=/usr/bin/python3 /root/open_door/openDoorServer.py|ExecStart=/usr/bin/python3 $current_dir/openDoorServer.py|" openDoor.service
 sudo cp openDoor.service /etc/systemd/system
 sudo systemctl enable openDoor.service
