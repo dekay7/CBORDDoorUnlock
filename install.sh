@@ -66,7 +66,7 @@ if [ -n "$apppass" ]; then
   sed -i "s/^APPPASS=.*/APPPASS=$apppass/" "$env_file"
 fi
 echo "USERNAME: $username"
-echo "PASSWORD: $password"
+echo "PASSWORD: [HIDDEN]"
 echo "SENDER: ${sender:-Not provided}"
 echo "APPPASS: ${apppass:-Not provided}"
 echo "Your door can be opened by visiting the following link: http://$ip_address:5000/open_sesame"
