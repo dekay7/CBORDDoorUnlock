@@ -34,10 +34,6 @@ case "$os" in
     exit 1
     ;;
 esac
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
-deactivate
 release_info=$(curl -s "https://api.github.com/repos/dekay7/CBORDDoorUnlock/releases/latest")
 download_url=$(echo "$release_info" | jq -r '.assets[0].browser_download_url')
 wget --progress=bar:force:noscroll -O open_door.zip "$download_url"
@@ -45,6 +41,10 @@ wait $1
 unzip open_door.zip -d open_door
 rm open_door.zip
 cd open_door/
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+deactivate
 current_dir=$(pwd)
 sed -i "s|'/root/open_door/openDoor.py'|'$current_dir/openDoor.py'|" openDoorServer.py
 sed -i "s|'WorkingDirectory=/root/open_door/'|WorkingDirectory=$current_dir|" openDoor.service
