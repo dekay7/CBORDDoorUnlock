@@ -71,7 +71,6 @@ echo "SENDER: ${sender:-Not provided}"
 echo "APPPASS: ${apppass:-Not provided}"
 echo "Your door can be opened by visiting the following link: http://$ip_address:5000/open_sesame"
 echo "Download the Apple Shortcut to your iPhone using the following URL:"
-qrencode -o unlockDoorShortcut.png "https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut"
 catimg unlockDoorShortcut.png
 rm unlockDoorShortcut.png
 echo "Completed installation. Enjoy!"
