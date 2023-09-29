@@ -4,15 +4,15 @@ os=$(uname -s)
 case "$os" in
   Linux)
     # Debian/Ubuntu
-    if command -v apt-get &> /dev/null; then
+    if command -v apt &> /dev/null; then
       sudo apt update
-      sudo apt install -y git qrencode catimg
+      sudo apt install -y git jq qrencode catimg
     # Red Hat/CentOS
     elif command -v yum &> /dev/null; then
-      sudo yum -y install git qrencode catimg
+      sudo yum -y install git jq qrencode catimg
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes git qrencode catimg
+      sudo dnf install --assumeyes git jq qrencode catimg
     else
       echo "Unsupported Linux distribution."
     fi
@@ -21,6 +21,7 @@ case "$os" in
     # macOS (using Homebrew)
     if command -v brew &> /dev/null; then
       brew install git
+      brew install jq
       brew install qrencode
       brew install catimg
     else
