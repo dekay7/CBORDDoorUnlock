@@ -52,7 +52,6 @@ sed -i "s|ExecStart=/root/open_door/venv/bin/python3 openDoorServer.py|ExecStart
 sudo cp openDoor.service /etc/systemd/system
 sudo systemctl enable openDoor.service
 sudo systemctl start openDoor.service
-sudo systemctl status openDoor.service
 mv example.env .env
 env_file=".env"
 show_form() {
