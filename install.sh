@@ -4,7 +4,7 @@ os=$(uname -s)
 case "$os" in
   Linux)
     # Debian/Ubuntu
-    if command -v apt &> /dev/null; then
+    if command -v apt-get &> /dev/null; then
       sudo apt update
       sudo apt install -y unzip git jq qrencode catimg
     # Red Hat/CentOS
