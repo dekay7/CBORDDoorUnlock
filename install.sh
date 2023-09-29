@@ -42,7 +42,7 @@ rm open_door.zip
 cd open_door/
 current_dir=$(pwd)
 sed -i "s|ExecStart=/usr/bin/python3 /root/open_door/openDoorServer.py|ExecStart=/usr/bin/python3 $current_dir/openDoorServer.py|" openDoor.service
-sudo mv openDoor.service /etc/systemd/system
+sudo cp openDoor.service /etc/systemd/system
 sudo systemctl enable openDoor.service
 sudo systemctl start openDoor.service
 sudo systemctl status openDoor.service
