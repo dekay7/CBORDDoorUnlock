@@ -6,13 +6,13 @@ case "$os" in
     # Debian/Ubuntu
     if command -v apt &> /dev/null; then
       sudo apt update
-      sudo apt install -y git jq qrencode catimg
+      sudo apt install -y unzip git jq qrencode catimg
     # Red Hat/CentOS
     elif command -v yum &> /dev/null; then
-      sudo yum -y install git jq qrencode catimg
+      sudo yum -y install unzip git jq qrencode catimg
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes git jq qrencode catimg
+      sudo dnf install --assumeyes unzip git jq qrencode catimg
     else
       echo "Unsupported Linux distribution."
     fi
@@ -20,6 +20,7 @@ case "$os" in
   Darwin)
     # macOS (using Homebrew)
     if command -v brew &> /dev/null; then
+      brew install unzip
       brew install git
       brew install jq
       brew install qrencode
