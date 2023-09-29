@@ -44,6 +44,7 @@ cd open_door/
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
+playwright install
 deactivate
 current_dir=$(pwd)
 sed -i "s|'/root/open_door/openDoor.py'|'$current_dir/openDoor.py'|" openDoorServer.py
