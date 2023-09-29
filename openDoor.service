@@ -1,0 +1,11 @@
+[Unit]
+Description=Door Opener Webhook Listener
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /root/open_door/openDoorServer.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
