@@ -6,13 +6,13 @@ case "$os" in
     # Debian/Ubuntu
     if command -v apt-get &> /dev/null; then
       sudo apt update
-      sudo apt install -y unzip git jq qrencode catimg
+      sudo apt install -y unzip git jq catimg
     # Red Hat/CentOS
     elif command -v yum &> /dev/null; then
-      sudo yum -y install unzip git jq qrencode catimg
+      sudo yum -y install unzip git jq catimg
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes unzip git jq qrencode catimg
+      sudo dnf install --assumeyes unzip git jq catimg
     else
       echo "Unsupported Linux distribution."
     fi
@@ -23,7 +23,6 @@ case "$os" in
       brew install unzip
       brew install git
       brew install jq
-      brew install qrencode
       brew install catimg
     else
       echo "Homebrew is not installed. Please install Homebrew first."
