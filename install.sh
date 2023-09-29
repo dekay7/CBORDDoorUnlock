@@ -34,7 +34,10 @@ case "$os" in
     exit 1
     ;;
 esac
-pip install --break-system-packages requests_html bs4 python-dotenv Flask
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+deactivate
 release_info=$(curl -s "https://api.github.com/repos/dekay7/CBORDDoorUnlock/releases/latest")
 download_url=$(echo "$release_info" | jq -r '.assets[0].browser_download_url')
 wget --progress=bar:force:noscroll -O open_door.zip "$download_url"
@@ -44,7 +47,8 @@ rm open_door.zip
 cd open_door/
 current_dir=$(pwd)
 sed -i "s|'/root/open_door/openDoor.py'|'$current_dir/openDoor.py'|" openDoorServer.py
-sed -i "s|ExecStart=/usr/bin/python3 /root/open_door/openDoorServer.py|ExecStart=/usr/bin/python3 $current_dir/openDoorServer.py|" openDoor.service
+sed -i "s|'WorkingDirectory=/root/open_door/'|WorkingDirectory=$current_dir|" openDoor.service
+sed -i "s|ExecStart=/root/open_door/venv/bin/python3 openDoorServer.py|ExecStart=$current_dir/venv/bin/python3 openDoorServer.py|" openDoor.service
 sudo cp openDoor.service /etc/systemd/system
 sudo systemctl enable openDoor.service
 sudo systemctl start openDoor.service

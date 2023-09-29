@@ -1,0 +1,4 @@
+bs4
+python-dotenv
+requests-html
+Flask

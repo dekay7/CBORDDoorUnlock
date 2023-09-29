@@ -4,7 +4,8 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /root/open_door/openDoorServer.py
+WorkingDirectory=/root/open_door/
+ExecStart=/root/open_door/venv/bin/python3 openDoorServer.py
 Restart=on-failure
 
 [Install]
