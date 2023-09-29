@@ -6,13 +6,13 @@ case "$os" in
     # Debian/Ubuntu
     if command -v apt-get &> /dev/null; then
       sudo apt update
-      sudo apt install -y unzip git jq catimg
+      sudo apt install -y unzip git jq qrencode catimg
     # Red Hat/CentOS
     elif command -v yum &> /dev/null; then
-      sudo yum -y install unzip git jq catimg
+      sudo yum -y install unzip git jq qrencode catimg
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes unzip git jq catimg
+      sudo dnf install --assumeyes unzip git jq qrencode catimg
     else
       echo "Unsupported Linux distribution."
     fi
@@ -23,6 +23,7 @@ case "$os" in
       brew install unzip
       brew install git
       brew install jq
+      brew install qrencode
       brew install catimg
     else
       echo "Homebrew is not installed. Please install Homebrew first."
@@ -72,6 +73,8 @@ echo "SENDER: ${sender:-Not provided}"
 echo "APPPASS: ${apppass:-Not provided}"
 echo "Your door can be opened by visiting the following link: http://$ip_address:5000/open_sesame"
 echo "Download the Apple Shortcut to your iPhone using the following URL:"
-catimg unlockDoorShortcut.png
-rm unlockDoorShortcut.png
+qrencode -o unlockDoorShortcut.png "https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut"
+convert unlockDoorShortcut.png -resize 25% resized_unlockDoorShortcut.png
+catimg resized_unlockDoorShortcut.png
+rm unlockDoorShortcut.png resized_unlockDoorShortcut.png
 echo "Completed installation. Enjoy!"
