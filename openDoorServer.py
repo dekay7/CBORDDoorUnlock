@@ -7,7 +7,7 @@ app = Flask(__name__)
 def open_sesame():
     try:
         subprocess.run(['/root/open_door/venv/bin/python3', '/root/open_door/openDoor.py'], check=True, capture_output=True)
-        return "Door unlocked and email sent."
+        return "Door unlocked."
     except subprocess.CalledProcessError as e:
         return f"Error: {str(e)}\nSTDOUT: {e.stdout.decode()}\nSTDERR: {e.stderr.decode()}", 500
     except Exception as e:
