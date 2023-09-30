@@ -23,7 +23,7 @@ with sync_playwright() as p:
     page = context.new_page()
     
     # Visit login page
-    page.goto(login_url, wait_until='domcontentloaded')
+    page.goto(login_url, wait_until='domcontentloaded', timeout=None)
 
     # Login using Playwright
     page.fill('input[name="user"]', username)
@@ -32,10 +32,11 @@ with sync_playwright() as p:
     page.wait_for_load_state("load", timeout=None)
 
     # Visit open door page
-    page.goto(open_door_url, wait_until='domcontentloaded')
+    page.goto(open_door_url, wait_until='domcontentloaded', timeout=None)
 
     # Open door
     page.click('input[type="submit"]')
+    page.wait_for_load_state("load", timeout=None)
 
     # End browser session
     browser.close()
