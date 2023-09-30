@@ -43,6 +43,7 @@ cd open_door/
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
+playwright install-deps
 playwright install
 deactivate
 current_dir=$(pwd)
