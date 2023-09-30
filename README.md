@@ -4,6 +4,12 @@ Any malicious use of this program is not the responsibility of the author. By do
 
 Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
+## Automatic Installation:
+```bash
+curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
+```
+This will install the install `openDoorServer` as well.
+
 ## Manual Configuration:
 Rename `example.env` to `.env` using the following command:
 ```bash
