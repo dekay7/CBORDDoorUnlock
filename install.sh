@@ -37,7 +37,6 @@ esac
 release_info=$(curl -s "https://api.github.com/repos/dekay7/CBORDDoorUnlock/releases/latest")
 download_url=$(echo "$release_info" | jq -r '.assets[0].browser_download_url')
 wget --progress=bar:force:noscroll -O open_door.zip "$download_url"
-wait $1
 unzip open_door.zip -d open_door
 rm open_door.zip
 cd open_door/
