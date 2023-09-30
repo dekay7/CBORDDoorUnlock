@@ -6,13 +6,13 @@ case "$os" in
     # Debian/Ubuntu
     if command -v apt-get &> /dev/null; then
       sudo apt update
-      sudo apt install -y unzip git jq python3 python3-pip
+      sudo apt install -y unzip git jq python3 python3-pip python3-venv
     # Red Hat/CentOS
     elif command -v yum &> /dev/null; then
-      sudo yum -y install unzip git jq python3 python3-pip
+      sudo yum -y install unzip git jq python3 python3-pip python3-venv
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes unzip git jq python3 python3-pip
+      sudo dnf install --assumeyes unzip git jq python3 python3-pip python3-venv
     else
       echo "Unsupported Linux distribution."
     fi
@@ -23,7 +23,7 @@ case "$os" in
       brew install unzip
       brew install git
       brew install jq
-      brew install python
+      brew install python3
     else
       echo "Homebrew is not installed. Please install Homebrew first."
       exit 1
