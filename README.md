@@ -65,5 +65,5 @@ Download the `unlockDoor.shortcut` file to your iOS device using/clicking the QR
 <a href="https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut"><img src="unlockDoorShortcut.png" alt="unlockDoor.shortcut download link QR code" width="50%" height="auto"></a><br>
 Apple Shortcut Download Link: https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut <br>
 
-### Shorcut Configuration:
+### Shortcut Configuration:
 When prompted to enter a URL, replace the default value, `http://192.168.0.50:5000/open_sesame`, with the local IP of the host server, followed by the port, and the subdirectory.
