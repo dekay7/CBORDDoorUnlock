@@ -5,12 +5,13 @@ Any malicious use of this program is not the responsibility of the author. By do
 Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
 ## Automatic Installation:
+This will install the `openDoorServer` as well. <br>
+Make sure you have `sudo` and `curl` installed. <br>
 ```bash
 curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
 ```
-This will install the `openDoorServer` as well.
 
-## Manual Configuration:
+## Manual Installation:
 Rename `example.env` to `.env` using the following command:
 ```bash
 sudo mv example.env .env
@@ -26,7 +27,7 @@ If you would like receive emails every time your door is unlocked, assign the fo
     - Your Gmail password **(if you <u>ARE NOT</u> using 2FA)**
     - A generated app password **(if you <u>ARE</u> using 2FA)**
 
-#### Service Configuration:
+#### Manual Service Configuration:
 Using `nano`, `vim`, or any other text editor, edit "/root/open_door/openDoorServer.py" in `openDoor.service` to the file path of `openDoorServer.py`. 
 
 Move `openDoor.service` to /etc/systemd/system using the following command:
@@ -58,11 +59,11 @@ For example, http://192.168.0.50:5000/open_sesame.
 Using `nano`, `vim`, or any other text editor, replace the following values for their appropriate keys with the associated cookies: 
 - For `"PHPSESSID":`, replace "php_sess_id" with the appropriate cookie value
 
-## Apple Shortcut Configuration:
+## Apple Shortcut:
 Download the `unlockDoor.shortcut` file to your iOS device using/clicking the QR code or link below: <br>
 
 <a href="https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut"><img src="unlockDoorShortcut.png" alt="unlockDoor.shortcut download link QR code" width="50%" height="auto"></a><br>
 Apple Shortcut Download Link: https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut <br>
 
-### Configuration:
+### Shorcut Configuration:
 When prompted to enter a URL, replace the default value, `http://192.168.0.50:5000/open_sesame`, with the local IP of the host server, followed by the port, and the subdirectory.
