@@ -1,5 +1,5 @@
 # CBORD MobileID/CardAdmin Door Opener
-## ⚠️ DISCLAIMER:
+## ⚠️DISCLAIMER:
 Any malicious use of this program is not the responsibility of the author. By downloading and using this program, you agree that you, and any other parties involved in your implementation of this program, are entirely responsible for its use/misuse. <br>
 
 Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
