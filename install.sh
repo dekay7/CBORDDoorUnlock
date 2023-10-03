@@ -67,8 +67,10 @@ show_form() {
 }
 source "$env_file"
 show_form
-sed -i "s/^USERNAME=.*/USERNAME=\"$username\"/" "$env_file"
-sed -i "s/^PASSWORD=.*/PASSWORD=\"$password\"/" "$env_file"
+escaped_username=$(printf "%s\n" "$username" | sed 's/[&/]/\\&/g')
+sed -i "s|^USERNAME=.*|USERNAME=$escaped_username|" "$env_file"
+escaped_password=$(printf "%s\n" "$password" | sed 's/[&/]/\\&/g')
+sed -i "s|^PASSWORD=.*|PASSWORD=$escaped_password|" "$env_file"
 if [ -n "$sender" ]; then
   sed -i "s/^SENDER=.*/SENDER=$sender/" "$env_file"
 fi
