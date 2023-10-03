@@ -51,7 +51,7 @@ sed -i "s|'/root/open_door/venv/bin/python3'|'$current_dir/venv/bin/python3'|" o
 sed -i "s|'/root/open_door/openDoor.py'|'$current_dir/openDoor.py'|" openDoorServer.py
 sed -i "s|'WorkingDirectory=/root/open_door/'|WorkingDirectory=$current_dir|" openDoor.service
 sed -i "s|ExecStart=/root/open_door/venv/bin/python3 openDoorServer.py|ExecStart=$current_dir/venv/bin/python3 openDoorServer.py|" openDoor.service
-sudo cp openDoor.service /etc/systemd/system
+sudo ln openDoor.service /etc/systemd/system/openDoor.service
 sudo systemctl enable openDoor.service
 sudo systemctl start openDoor.service
 mv example.env .env

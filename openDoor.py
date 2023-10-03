@@ -22,21 +22,33 @@ with sync_playwright() as p:
     context = browser.new_context(user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1")
     page = context.new_page()
     
-    # Visit login page
+    # Get session token
     page.goto(login_url, wait_until='domcontentloaded', timeout=None)
+    content = page.content()
+    session_token_start = content.find("__sesstok = '") + len("__sesstok = '")
+    session_token_end = content.find("';", session_token_start)
+    session_token = content[session_token_start:session_token_end]
 
-    # Login using Playwright
-    page.fill('input[name="user"]', username)
-    page.fill('input[name="pass"]', password)
-    page.click('input[type="submit"]')
-    page.wait_for_load_state("load", timeout=None)
-
-    # Visit open door page
+    # Login using post request
+    payload = {
+        'user': username,
+        'pass': password,
+        '__sesstok': session_token,
+    }
+    response = context.request.post(login_url, data=payload, timeout=None)
     page.goto(open_door_url, wait_until='domcontentloaded', timeout=None)
+    content = page.content()
+    session_token_start = content.find("__sesstok = '") + len("__sesstok = '")
+    session_token_end = content.find("';", session_token_start)
+    session_token = content[session_token_start:session_token_end]
 
-    # Open door
-    page.click('input[type="submit"]')
-    page.wait_for_load_state("load", timeout=None)
+    # Open door using post request
+    payload = {
+        'doorType': 1,
+        'answeredYes': "yes",
+        '__sesstok': session_token
+    }
+    response = context.request.post(open_door_url, data=payload, timeout=None)
 
     # End browser session
     browser.close()
