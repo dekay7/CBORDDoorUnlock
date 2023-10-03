@@ -58,7 +58,7 @@ mv example.env .env
 env_file=".env"
 show_form() {
   username=$(whiptail --inputbox "Enter IIT username (without @hawk.iit.edu):" 8 50 "$USERNAME" 3>&1 1>&2 2>&3)
-  password=$(whiptail --passwordbox "Enter IIT password:" 8 50 "$PASSWORD" 3>&1 1>&2 2>&3)
+  password=$(whiptail --passwordbox "Enter IIT password:" 8 50 3>&1 1>&2 2>&3)
   sender=$(whiptail --inputbox "(OPTIONAL) Enter sender email address (for email notifications)\nPress enter/return to skip:" 8 50 3>&1 1>&2 2>&3)
 
   if [ -n "$sender" ]; then
@@ -67,8 +67,8 @@ show_form() {
 }
 source "$env_file"
 show_form
-sed -i "s/^USERNAME=.*/USERNAME=$username/" "$env_file"
-sed -i "s/^PASSWORD=.*/PASSWORD=$password/" "$env_file"
+sed -i "s/^USERNAME=.*/USERNAME=\"$username\"/" "$env_file"
+sed -i "s/^PASSWORD=.*/PASSWORD=\"$password\"/" "$env_file"
 if [ -n "$sender" ]; then
   sed -i "s/^SENDER=.*/SENDER=$sender/" "$env_file"
 fi
