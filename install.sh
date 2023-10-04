@@ -6,7 +6,7 @@ if [ -e /etc/os-release ]; then
     case "$ID" in
         debian|ubuntu)
             sudo apt update
-            sudo apt install -y wget unzip git jq python3 python3-pip whiptail
+            sudo apt install -y wget unzip git jq python3 python3-pip python3-venv whiptail
             ;;
         *)
             echo "Unsupported Linux distribution."
