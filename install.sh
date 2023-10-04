@@ -10,13 +10,13 @@ if [ -e /etc/os-release ]; then
     case "$ID" in
         debian|ubuntu)
             sudo apt update
-            sudo apt install -y unzip git jq python3 python3-pip
+            sudo apt install -y wget unzip git jq python3 python3-pip whiptail
             ;;
         centos|rhel)
-            sudo yum -y install unzip git jq python3 python3-pip
+            sudo yum -y install wget unzip git jq python3 python3-pip newt
             ;;
         fedora)
-            sudo dnf install --assumeyes unzip git jq python3 python3-pip newt
+            sudo dnf install --assumeyes wget unzip git jq python3 python3-pip newt
             ;;
         *)
             echo "Unsupported Linux distribution."
@@ -26,7 +26,7 @@ if [ -e /etc/os-release ]; then
 elif [ "$os" == "Darwin" ]; then
     # macOS (using Homebrew)
     if command -v brew &> /dev/null; then
-        brew install unzip git jq python3
+        brew install wget unzip git jq python3 newt
     else
         echo "Homebrew is not installed. Please install Homebrew first."
         exit 1
