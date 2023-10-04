@@ -77,10 +77,18 @@ fi
 if [ -n "$apppass" ]; then
   sed -i "s/^APPPASS=.*/APPPASS=$apppass/" "$env_file"
 fi
-echo "USERNAME: $username"
-echo "PASSWORD: [HIDDEN]"
-echo "SENDER: ${sender:-Not provided}"
-echo "APPPASS: ${apppass:-Not provided}"
-echo "Your door can be opened by visiting the following link: http://$ip_address:5000/open_sesame"
-echo "Download the Apple Shortcut to your iPhone using the following URL:"
-echo "https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut"
+whiptail --title "Information" --msgbox \
+"USERNAME: $username
+PASSWORD: [HIDDEN]
+SENDER: ${sender:-Not provided}
+APPPASS: ${apppass:-Not provided}
+Your door can be opened by visiting the following link: http://$ip_address:5000/open_sesame
+Download the Apple Shortcut to your iPhone using the following URL:
+https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/unlockDoor.shortcut" 20 70
+
+# Ask the user to reboot
+if whiptail --title "Reboot Confirmation" --yesno "Reboot? (Necessary)" 10 50; then
+    reboot
+else
+    whiptail --msgbox "To ensure everything works properly, you must reboot your host. Please reboot manually later. " 10 50
+fi
