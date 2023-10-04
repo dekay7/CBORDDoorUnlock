@@ -1,46 +1,58 @@
 #!/bin/bash
+
 ip_address=$(ip -o route get to 1.1.1.1 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')
 os=$(uname -s)
-case "$os" in
-  Linux)
-    # Debian/Ubuntu
-    if command -v apt-get &> /dev/null; then
-      sudo apt update
-      sudo apt install -y unzip git jq python3 python3-pip python3-venv
-    # Red Hat/CentOS
-    elif command -v yum &> /dev/null; then
-      sudo yum -y install unzip git jq python3 python3-pip python3-venv
-    # Fedora
-    elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes unzip git jq python3 python3-pip python3-virtualenv newt
-    else
-      echo "Unsupported Linux distribution."
-    fi
-    ;;
-  Darwin)
+
+# Check for the existence of /etc/os-release
+if [ -e /etc/os-release ]; then
+    # Source the os-release file to get the ID variable
+    . /etc/os-release
+    case "$ID" in
+        debian|ubuntu)
+            sudo apt update
+            sudo apt install -y unzip git jq python3 python3-pip
+            ;;
+        centos|rhel)
+            sudo yum -y install unzip git jq python3 python3-pip
+            ;;
+        fedora)
+            sudo dnf install --assumeyes unzip git jq python3 python3-pip newt
+            ;;
+        *)
+            echo "Unsupported Linux distribution."
+            exit 1
+            ;;
+    esac
+elif [ "$os" == "Darwin" ]; then
     # macOS (using Homebrew)
     if command -v brew &> /dev/null; then
-      brew install unzip
-      brew install git
-      brew install jq
-      brew install python3
+        brew install unzip git jq python3
     else
-      echo "Homebrew is not installed. Please install Homebrew first."
-      exit 1
+        echo "Homebrew is not installed. Please install Homebrew first."
+        exit 1
     fi
-    ;;
-  *)
+else
     echo "Unsupported operating system."
     exit 1
-    ;;
-esac
+fi
+
 release_info=$(curl -s "https://api.github.com/repos/dekay7/CBORDDoorUnlock/releases/latest")
 download_url=$(echo "$release_info" | jq -r '.assets[0].browser_download_url')
 wget --progress=bar:force:noscroll -O open_door.zip "$download_url"
 unzip open_door.zip -d open_door
 rm open_door.zip
 cd open_door/
-python3 -m venv venv
+
+# Check for the presence of either venv or virtualenv
+if command -v python3 -m venv &> /dev/null; then
+    python3 -m venv venv
+elif command -v python3 -m virtualenv &> /dev/null; then
+    python3 -m virtualenv venv
+else
+    echo "Could not find venv or virtualenv. Please install either venv or virtualenv and rerun the script."
+    exit 1
+fi
+
 source venv/bin/activate
 pip3 install -r requirements.txt
 playwright install-deps
