@@ -1,14 +1,16 @@
 # CBORD MobileID/CardAdmin Door Opener
+Due to this program's reliance on [Playwright](https://playwright.dev/python/), it is only compatible with Debian/Ubuntu, macOS, and Windows.
+
 ## ⚠️DISCLAIMER:
 Any malicious use of this program is not the responsibility of the author. By downloading and using this program, you agree that you, and any other parties involved in your implementation of this program, are entirely responsible for its use/misuse. <br>
 
 Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
-## Automatic Installation:
-This will install the `openDoorServer` as well. <br>
-Make sure you have `sudo` and `curl` installed. <br>
+## Automatic Installation (Debian/Ubuntu, macOS):
+**This will install the `openDoorServer` as well.** <br>
+Install dependencies and run the `install.sh` script:
 ```bash
-curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
+apt update && apt install -y sudo curl && curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
 ```
 
 ## Manual Installation:

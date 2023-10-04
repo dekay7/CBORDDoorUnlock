@@ -15,7 +15,7 @@ if [ -e /etc/os-release ]; then
     esac
 elif [ "$os" == "Darwin" ]; then
     if command -v brew &> /dev/null; then
-        brew install wget unzip git jq python3 newt
+        brew install wget unzip git jq python3 virtualenv newt
     else
         echo "Homebrew is not installed. Please install Homebrew first."
         exit 1
@@ -30,7 +30,14 @@ wget --progress=bar:force:noscroll -O open_door.zip "$download_url"
 unzip open_door.zip -d open_door
 rm open_door.zip
 cd open_door/
-python3 -m venv venv
+if command -v python3 -m venv &> /dev/null; then
+    python3 -m venv venv
+elif command -v python3 -m virtualenv &> /dev/null; then
+    python3 -m virtualenv venv
+else
+    echo "Could not find venv or virtualenv. Please install either venv or virtualenv and rerun the script."
+    exit 1
+fi
 source venv/bin/activate
 pip3 install -r requirements.txt
 playwright install-deps
