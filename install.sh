@@ -12,7 +12,7 @@ case "$os" in
       sudo yum -y install unzip git jq python3 python3-pip python3-venv
     # Fedora
     elif command -v dnf &> /dev/null; then
-      sudo dnf install --assumeyes unzip git jq python3 python3-pip python3-venv
+      sudo dnf install --assumeyes unzip git jq python3 python3-pip python3-virtualenv newt
     else
       echo "Unsupported Linux distribution."
     fi
