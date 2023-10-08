@@ -9,7 +9,7 @@ if [ -e /etc/os-release ]; then
             sudo apt install -y wget unzip git jq python3 python3-pip python3-venv whiptail
             ;;
         *)
-            echo "Unsupported Linux distribution."
+            echo "Unsupported Linux distribution. Only supports Debian, Ubuntu, and macOS. "
             exit 1
             ;;
     esac
@@ -21,7 +21,7 @@ elif [ "$os" == "Darwin" ]; then
         exit 1
     fi
 else
-    echo "Unsupported operating system."
+    echo "Unsupported operating system. Only supports Debian, Ubuntu, and macOS. "
     exit 1
 fi
 release_info=$(curl -s "https://api.github.com/repos/dekay7/CBORDDoorUnlock/releases/latest")
