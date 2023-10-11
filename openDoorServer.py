@@ -1,17 +1,25 @@
 from flask import Flask
-import subprocess
+from openDoorBeta import DoorModule
 
 app = Flask(__name__)
+door_module = DoorModule()
+print("Created door module object")
 
 @app.route('/open_sesame', methods=['GET'])
 def open_sesame():
-    try:
-        subprocess.run(['/root/open_door/venv/bin/python3', '/root/open_door/openDoor.py'], check=True, capture_output=True)
-        return "Door unlocked."
-    except subprocess.CalledProcessError as e:
-        return f"Error: {str(e)}\nSTDOUT: {e.stdout.decode()}\nSTDERR: {e.stderr.decode()}", 500
-    except Exception as e:
-        return f"Unexpected Error: {str(e)}", 500
+    if door_module.browser is None:
+        print(door_module.initialize_browser())
+        print(door_module.login())
+    else:
+        print("Browser exists")
+        if not door_module.is_logged_in():
+            print("Not logged in")
+            print(door_module.login())
+        else:
+            print("Already logged in")
+    print(door_module.open_door())
+    print(door_module.send_email())
+    return "Door unlocked."
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=False)
