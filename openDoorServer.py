@@ -1,5 +1,5 @@
 from flask import Flask
-from openDoorBeta import DoorModule
+from openDoor import DoorModule
 
 app = Flask(__name__)
 door_module = DoorModule()
