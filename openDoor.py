@@ -80,19 +80,20 @@ class DoorModule:
 
     def send_email(self):
         # Send email notification
-        self.time = datetime.datetime.now()
-        self.recipient = f"{self.username}@hawk.iit.edu"
-        try:
-            msg = MIMEText(f"Your door was unlocked @ {self.time}.")
-            msg['Subject'] = f"Door Unlocked @ {self.time}"
-            msg['From'] = self.sender
-            msg['To'] = ', '.join(self.recipient)
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-                smtp_server.login(self.sender, self.app_pass)
-                smtp_server.sendmail(self.sender, self.recipient, msg.as_string())
-            return("Email sent")
-        except Exception as e:
-            raise Exception("Error sending email:", str(e))
+        if self.sender != "senderemail@gmail.com" or None:
+            self.time = datetime.datetime.now()
+            self.recipient = f"{self.username}@hawk.iit.edu"
+            try:
+                msg = MIMEText(f"Your door was unlocked @ {self.time}.")
+                msg['Subject'] = f"Door Unlocked @ {self.time}"
+                msg['From'] = self.sender
+                msg['To'] = ', '.join(self.recipient)
+                with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+                    smtp_server.login(self.sender, self.app_pass)
+                    smtp_server.sendmail(self.sender, self.recipient, msg.as_string())
+                return("Email sent")
+            except Exception as e:
+                raise Exception("Error sending email:", str(e))
 
     def close_browser(self):
         # CLose the browser (not implemented in Flask server)
