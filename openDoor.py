@@ -49,13 +49,10 @@ class DoorModule:
         self.session_token = self.content[self.session_token_start:self.session_token_end]
         print(f"Pre-login session token: {self.session_token}")
         # Login using the payload
-        self.payload = {
-            'user': self.username,
-            'pass': self.password,
-            '__sesstok': self.session_token,
-        }
         print("Logging in")
-        self.context.request.post(self.login_url, data=self.payload, timeout=0)
+        self.page.type('input[name="user"]', self.username)
+        self.page.type('input[name="pass"]', self.password)
+        self.page.click('input[type="submit"]', timeout=0)
         # Verify login and get authenticated session token
         self.page.goto(self.open_door_url, wait_until='load', timeout=0)
         print("Logged in")
@@ -70,12 +67,7 @@ class DoorModule:
     def open_door(self):
         # Open the door using the payload
         print("Opening door")
-        self.payload = {
-            'doorType': 1,
-            'answeredYes': "yes",
-            '__sesstok': self.session_token
-        }
-        self.context.request.post(self.open_door_url, data=self.payload, timeout=0)
+        self.page.click('input[type="submit"]')
         return("Opened door")
 
     def send_email(self):
