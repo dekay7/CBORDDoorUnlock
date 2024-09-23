@@ -29,7 +29,7 @@ class DoorModule:
         self.browser = self.playwright.chromium.launch()
         self.context = self.browser.new_context(user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1")
         self.page = self.context.new_page()
-        return("Browser initialized")
+        return True
 
     def is_logged_in(self):
         # Check if browser is logged in to CBORD
@@ -46,11 +46,11 @@ class DoorModule:
         cookies = self.page.context.cookies()
         for cookie in cookies:
             if cookie['name'] == 'PHPSESSID':
-                self.session_token = cookie['value']
+                self.unauth_token = cookie['value']
                 break
         else:
             raise Exception("PHPSESSID cookie not found.")
-        print(f"Unauthenticated session token: {self.session_token}")
+        print(f"Unauthenticated session token: {self.unauth_token}")
         # Login using the payload
         print(f"Logging in with {self.username} and {self.password}")
         self.page.type('input[name="user"]', self.username)
@@ -58,25 +58,29 @@ class DoorModule:
         self.page.click('input[type="submit"]', timeout=0)
         # Verify login and get authenticated session token
         self.page.goto(self.open_door_url, wait_until='load', timeout=0)
-        print("Logged in")
         print("Getting authenticated session token")
         cookies = self.page.context.cookies()
         for cookie in cookies:
             if cookie['name'] == 'PHPSESSID':
-                self.session_token = cookie['value']
+                self.auth_token = cookie['value']
                 break
         else:
             raise Exception("PHPSESSID cookie not found.")
-
-        print(f"Authenticated session token: {self.session_token}")
-        return "Login confirmed"
+        if self.unauth_token != self.auth_token:
+            print(f"Authenticated session token: {self.auth_token}")
+            return True
+        else:
+            return False
 
     def open_door(self):
         # Open the door using the payload
         print("Opening door")
         self.page.click('input[type="submit"]')
         self.page.wait_for_load_state(state="load", timeout=0)
-        return("Opened door")
+        if "Approved" in self.page.content():
+            return True
+        else:
+            return False
 
     def send_email(self):
         # Send email notification
@@ -91,9 +95,11 @@ class DoorModule:
                 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
                     smtp_server.login(self.sender, self.app_pass)
                     smtp_server.sendmail(self.sender, self.recipient, msg.as_string())
-                return("Email sent")
+                return True
             except Exception as e:
                 raise Exception("Error sending email:", str(e))
+        else:
+            return False
 
     def close_browser(self):
         # CLose the browser (not implemented in Flask server)
