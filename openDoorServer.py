@@ -15,7 +15,6 @@ def open_sesame():
         if not door_module.login():
             return "Failed to log in. " + conditions
     else:
-        conditions = conditions + "Browser instance exists. "
         print("Browser exists")
         if not door_module.is_logged_in():
             conditions = conditions + "Browser instance not authenticated. "
