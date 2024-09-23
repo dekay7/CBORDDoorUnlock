@@ -26,7 +26,7 @@ docker build -t open_door .
 ```
 Run a Docker container with host port 5000 using the following command:
 ```bash
-docker run -d -p 5000:5000 --restart always open_door --name open_door
+docker run -d -p 5000:5000 --restart always --name open_door open_door
 ```
 
 #### Optional:
