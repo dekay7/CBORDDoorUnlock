@@ -52,7 +52,7 @@ class DoorModule:
             raise Exception("PHPSESSID cookie not found.")
         print(f"Unauthenticated session token: {self.session_token}")
         # Login using the payload
-        print("Logging in")
+        print(f"Logging in with {self.username} and {self.password}")
         self.page.type('input[name="user"]', self.username)
         self.page.type('input[name="pass"]', self.password)
         self.page.click('input[type="submit"]', timeout=0)
