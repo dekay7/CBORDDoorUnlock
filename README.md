@@ -7,11 +7,34 @@ Any malicious use of this program is not the responsibility of the author. By do
 Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
 ## Automatic Installation (Debian/Ubuntu, macOS):
-**This will install the `openDoorServer` as well.** <br>
+**This will perform a wholistic install that has been thoroughly tested on Alpine Linux.** <br>
+
 Install dependencies and run the `install.sh` script:
 ```bash
 apt update && apt install -y sudo curl && curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
 ```
+
+## Docker Installation (Linux, macOS, Windows):
+Make sure you have Docker already installed on your device (that will be acting as the server). <br>
+
+Download `CBORDDoorUnlock_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). Using `nano`, `vim`, or any other text editor, assign the following variables in `Dockerfile` to the appropriate values:
+- For `ENV LOGINUSER=`, replace "oktausername1" with your OKTA username
+- For `ENV PASS=`, replace "okta_p@ssword" with your OKTA password
+Open a terminal in the same directory as the `Dockerfile` and build a Docker image using the following command:
+```bash
+docker build -t open_door .
+```
+Run a Docker container with host port 5000 using the following command:
+```bash
+docker run -p 5000:5000 open_door
+```
+
+#### Optional:
+If you would like to receive emails every time your door is unlocked, assign the following variables in `Dockerfile` to the appropriate values: 
+- For `ENV SENDER=`, replace "senderemail@gmail.com" with a sender Gmail to receive door unlock notifications from
+- For `ENV APPPASS=`, replace "aaaa bbbb cccc dddd" with:
+    - Your Gmail password **(if you <u>ARE NOT</u> using 2FA)**
+    - A generated app password **(if you <u>ARE</u> using 2FA)**
 
 ## Manual Installation:
 Rename `example.env` to `.env` using the following command:
@@ -19,7 +42,7 @@ Rename `example.env` to `.env` using the following command:
 sudo mv example.env .env
 ```
 Using `nano`, `vim`, or any other text editor, assign the following variables in `.env` to the appropriate values:
-- For `USER=`, replace "oktausername1" with your OKTA username
+- For `LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `PASS=`, replace "okta_p@ssword" with your OKTA password
 
 #### Optional:
