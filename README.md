@@ -6,14 +6,6 @@ Any malicious use of this program is not the responsibility of the author. By do
 
 Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
-## Automatic Installation (Debian/Ubuntu, macOS):
-**This will perform a wholistic install that has been thoroughly tested on Alpine Linux.** <br>
-
-Install dependencies and run the `install.sh` script:
-```bash
-apt update && apt install -y sudo curl && curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
-```
-
 ## Docker Installation (Linux, macOS, Windows):
 Make sure you have Docker already installed on your device (that will be acting as the server). <br>
 
@@ -27,6 +19,14 @@ docker build -t open_door .
 Run a Docker container with host port 5000 using the following command:
 ```bash
 docker run -d -p 5000:5000 --restart always --name open_door open_door
+```
+
+## Automatic Native Installation (Debian/Ubuntu, macOS):
+**This will perform a wholistic install that has been thoroughly tested on Alpine Linux.** <br>
+
+Install dependencies and run the `install.sh` script:
+```bash
+apt update && apt install -y sudo curl && curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
 ```
 
 #### Optional:
