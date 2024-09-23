@@ -54,7 +54,7 @@ sudo systemctl start openDoor.service
 mv example.env .env
 env_file=".env"
 show_form() {
-    username=$(whiptail --inputbox "Enter IIT username (without @hawk.iit.edu):" 8 50 "$USERNAME" 3>&1 1>&2 2>&3)
+    username=$(whiptail --inputbox "Enter IIT username (without @hawk.iit.edu):" 8 50 "$USER" 3>&1 1>&2 2>&3)
     password=$(whiptail --passwordbox "Enter IIT password:" 8 50 3>&1 1>&2 2>&3)
     sender=$(whiptail --inputbox "(OPTIONAL) Enter sender email address (for email notifications)\nPress enter/return to skip:" 8 50 3>&1 1>&2 2>&3)
 
@@ -65,9 +65,9 @@ show_form() {
 source "$env_file"
 show_form
 escaped_username=$(printf "%s\n" "$username" | sed 's/[&/]/\\&/g')
-sed -i "s|^USERNAME=.*|USERNAME=$escaped_username|" "$env_file"
+sed -i "s|^USER=.*|USER=$escaped_username|" "$env_file"
 escaped_password=$(printf "%s\n" "$password" | sed 's/[&/]/\\&/g')
-sed -i "s|^PASSWORD=.*|PASSWORD=$escaped_password|" "$env_file"
+sed -i "s|^PASS=.*|PASS=$escaped_password|" "$env_file"
 if [ -n "$sender" ]; then
     sed -i "s/^SENDER=.*/SENDER=$sender/" "$env_file"
 fi
@@ -75,8 +75,8 @@ if [ -n "$apppass" ]; then
     sed -i "s/^APPPASS=.*/APPPASS=$apppass/" "$env_file"
 fi
 whiptail --title "Information" --msgbox \
-"USERNAME: $username
-PASSWORD: [HIDDEN]
+"USER: $username
+PASS: [HIDDEN]
 SENDER: ${sender:-Not provided}
 APPPASS: ${apppass:-Not provided}
 Your door can be opened by visiting the following link: http://$ip_address:5000/open_sesame

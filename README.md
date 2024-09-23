@@ -19,8 +19,8 @@ Rename `example.env` to `.env` using the following command:
 sudo mv example.env .env
 ```
 Using `nano`, `vim`, or any other text editor, assign the following variables in `.env` to the appropriate values:
-- For `USERNAME=`, replace "oktausername1" with your OKTA username
-- For `PASSWORD=`, replace "okta_p@ssword" with your OKTA password
+- For `USER=`, replace "oktausername1" with your OKTA username
+- For `PASS=`, replace "okta_p@ssword" with your OKTA password
 
 #### Optional:
 If you would like receive emails every time your door is unlocked, assign the following variables in `.env` to the appropriate values:

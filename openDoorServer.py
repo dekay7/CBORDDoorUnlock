@@ -16,15 +16,15 @@ def open_sesame():
         conditions = conditions + "Browser instance exists. "
         print("Browser exists")
         if not door_module.is_logged_in():
-            conditions = conditions + "Browser instance not logged in. "
-            print("Not logged in")
+            conditions = conditions + "Browser instance not authenticated. "
+            print("Not authenticated")
             print(door_module.login())
         else:
-            conditions = conditions + "Browser instance already logged in. "
-            print("Already logged in")
+            conditions = conditions + "Browser instance authenticated. "
+            print("Already authenticated")
     print(door_module.open_door())
     print(door_module.send_email())
     return "Door unlocked. Conditions: " + conditions
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True, threaded=False)
+    app.run(host='0.0.0.0', port=5000, debug=False, threaded=False)

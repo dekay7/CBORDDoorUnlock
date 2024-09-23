@@ -14,8 +14,8 @@ class DoorModule:
         self.login_url = "https://cardadmin.iit.edu/login/ldap.php"
         self.open_door_url = "https://cardadmin.iit.edu/student/openmydoor.php"
         self.env = load_dotenv()
-        self.username = os.getenv("USERNAME")
-        self.password = os.getenv("PASSWORD")
+        self.username = os.getenv("USER")
+        self.password = os.getenv("PASS")
         self.sender = os.getenv("SENDER")
         self.app_pass = os.getenv("APPPASS")
         self.browser = None
@@ -33,7 +33,7 @@ class DoorModule:
 
     def is_logged_in(self):
         # Check if browser is logged in to CBORD
-        self.page.goto(self.open_door_url, wait_until='domcontentloaded', timeout=0)
+        self.page.goto(self.open_door_url, wait_until='load', timeout=0)
         self.content = self.page.content()
         if "<h2>Login</h2>" in self.content:
             return False
@@ -41,13 +41,16 @@ class DoorModule:
 
     def login(self):
         # Get initial session token to pass to login
-        print("Getting session token")
-        self.page.goto(self.login_url, wait_until='domcontentloaded', timeout=0)
-        self.content = self.page.content()
-        self.session_token_start = self.content.find("__sesstok = '") + len("__sesstok = '")
-        self.session_token_end = self.content.find("';", self.session_token_start)
-        self.session_token = self.content[self.session_token_start:self.session_token_end]
-        print(f"Pre-login session token: {self.session_token}")
+        print("Getting unauthenticated session token")
+        self.page.goto(self.login_url, wait_until='load', timeout=0)
+        cookies = self.page.context.cookies()
+        for cookie in cookies:
+            if cookie['name'] == 'PHPSESSID':
+                self.session_token = cookie['value']
+                break
+        else:
+            raise Exception("PHPSESSID cookie not found.")
+        print(f"Unauthenticated session token: {self.session_token}")
         # Login using the payload
         print("Logging in")
         self.page.type('input[name="user"]', self.username)
@@ -56,18 +59,23 @@ class DoorModule:
         # Verify login and get authenticated session token
         self.page.goto(self.open_door_url, wait_until='load', timeout=0)
         print("Logged in")
-        print("Getting session token")
-        self.content = self.page.content()
-        self.session_token_start = self.content.find("__sesstok = '") + len("__sesstok = '")
-        self.session_token_end = self.content.find("';", self.session_token_start)
-        self.session_token = self.content[self.session_token_start:self.session_token_end]
-        print(f"Post-login session token: {self.session_token}")
+        print("Getting authenticated session token")
+        cookies = self.page.context.cookies()
+        for cookie in cookies:
+            if cookie['name'] == 'PHPSESSID':
+                self.session_token = cookie['value']
+                break
+        else:
+            raise Exception("PHPSESSID cookie not found.")
+
+        print(f"Authenticated session token: {self.session_token}")
         return "Login confirmed"
 
     def open_door(self):
         # Open the door using the payload
         print("Opening door")
         self.page.click('input[type="submit"]')
+        self.page.wait_for_load_state(state="load", timeout=0)
         return("Opened door")
 
     def send_email(self):
