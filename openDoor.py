@@ -14,7 +14,7 @@ class DoorModule:
         self.login_url = "https://cardadmin.iit.edu/login/ldap.php"
         self.open_door_url = "https://cardadmin.iit.edu/student/openmydoor.php"
         self.env = load_dotenv()
-        self.username = os.getenv("USER")
+        self.username = os.getenv("LOGINUSER")
         self.password = os.getenv("PASS")
         self.sender = os.getenv("SENDER")
         self.app_pass = os.getenv("APPPASS")
