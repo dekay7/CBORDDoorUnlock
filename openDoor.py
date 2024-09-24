@@ -11,9 +11,9 @@ from playwright.sync_api import sync_playwright
 class DoorModule:
     def __init__(self):
         # Setting variables when initialized
-        self.login_url = "https://cardadmin.iit.edu/login/ldap.php"
-        self.open_door_url = "https://cardadmin.iit.edu/student/openmydoor.php"
         self.env = load_dotenv()
+        self.login_url = os.getenv("LOGINURL")
+        self.open_door_url = os.getenv("DOORURL")
         self.username = os.getenv("LOGINUSER")
         self.password = os.getenv("PASS")
         self.sender = os.getenv("SENDER")

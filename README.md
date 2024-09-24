@@ -1,49 +1,43 @@
 # CBORD MobileID/CardAdmin Door Opener
-Due to this program's reliance on [Playwright](https://playwright.dev/python/), it is only compatible with Debian/Ubuntu, macOS, and Windows.
+Due to this program's reliance on [Playwright](https://playwright.dev/python/), the recommended deployment method is through [Docker](#docker-installation-linux-macos-windows). The [Native (Manual) installation](#native-manual-installation-debianubuntu-macos-windows) is only compatible with Debian/Ubuntu, macOS, and Windows.
 
 ## ⚠️DISCLAIMER:
 Any malicious use of this program is not the responsibility of the author. By downloading and using this program, you agree that you, and any other parties involved in your implementation of this program, are entirely responsible for its use/misuse. <br>
 
-Please do not do stupid shit. The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
+**Please do not do stupid shit.** The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
 ## Docker Installation (Linux, macOS, Windows):
 Make sure you have Docker already installed on your device (that will be acting as the server). <br>
 
-Download `CBORDDoorUnlock_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). Using `nano`, `vim`, or any other text editor, assign the following variables in `Dockerfile` to the appropriate values:
+Download `CBORD_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). Using `nano`, `vim`, or any other text editor, assign the following variables in `Dockerfile` to the appropriate values:
 - For `ENV LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `ENV PASS=`, replace "okta_p@ssword" with your OKTA password
-Open a terminal in the same directory as the `Dockerfile` and build a Docker image using the following command:
-```bash
-docker build -t open_door .
-```
-Run a Docker container with host port 5000 using the following command:
-```bash
-docker run -d -p 5000:5000 --restart always --name open_door open_door
-```
-
-## Automatic Native Installation (Debian/Ubuntu, macOS):
-**This will perform a wholistic install that has been thoroughly tested on Alpine Linux.** <br>
-
-Install dependencies and run the `install.sh` script:
-```bash
-apt update && apt install -y sudo curl && curl -sSL https://raw.githubusercontent.com/dekay7/CBORDDoorUnlock/main/install.sh | bash
-```
+- For `LOGINURL=`, replace "https://cardadmin.iit.edu/login/ldap.php" with the login address for your CardAdmin interface
+- For `DOORURL=`, replace "https://cardadmin.iit.edu/student/openmydoor.php" with the open my door endpoint for your CardAdmin interface
 
 #### Optional:
-If you would like to receive emails every time your door is unlocked, assign the following variables in `Dockerfile` to the appropriate values: 
-- For `ENV SENDER=`, replace "senderemail@gmail.com" with a sender Gmail to receive door unlock notifications from
-- For `ENV APPPASS=`, replace "aaaa bbbb cccc dddd" with:
+If you would like receive emails every time your door is unlocked, assign the following variables in `.env` to the appropriate values:
+- For `SENDER=`, replace "senderemail@gmail.com" with a sender Gmail to receive door unlock notifications from
+- For `APPPASS=`, replace "aaaa bbbb cccc dddd" with:
     - Your Gmail password **(if you <u>ARE NOT</u> using 2FA)**
     - A generated app password **(if you <u>ARE</u> using 2FA)**
 
-## Manual Installation:
-Rename `example.env` to `.env` using the following command:
+Open a terminal in the same directory as the `docker-compose.yml` file and install using the following command:
 ```bash
-sudo mv example.env .env
+docker-compose up --build -d
 ```
+If you choose to change the environment variables later, make your edits, save, then use the command:
+```bash
+docker-compose down && docker-compose up -d
+```
+Once complete, go to the [Apple Shortcut](#apple-shortcut) section to install the shortcut to your iPhone. 
+
+## Native (Manual) Installation (Debian/Ubuntu, macOS, Windows):
 Using `nano`, `vim`, or any other text editor, assign the following variables in `.env` to the appropriate values:
 - For `LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `PASS=`, replace "okta_p@ssword" with your OKTA password
+- For `LOGINURL=`, replace "https://cardadmin.iit.edu/login/ldap.php" with the login address for your CardAdmin interface
+- For `DOORURL=`, replace "https://cardadmin.iit.edu/student/openmydoor.php" with the open my door endpoint for your CardAdmin interface
 
 #### Optional:
 If you would like receive emails every time your door is unlocked, assign the following variables in `.env` to the appropriate values:
