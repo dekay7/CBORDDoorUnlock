@@ -3,12 +3,10 @@ Due to this program's reliance on [Playwright](https://playwright.dev/python/), 
 
 ## ⚠️DISCLAIMER:
 Any malicious use of this program is not the responsibility of the author. By downloading and using this program, you agree that you, and any other parties involved in your implementation of this program, are entirely responsible for its use/misuse. <br>
-
 **Please do not do stupid shit.** The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
 
 ## Docker Installation (Linux, macOS, Windows):
 Make sure you have Docker already installed on your device (that will be acting as the server). <br>
-
 Download `CBORD_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). Using `nano`, `vim`, or any other text editor, assign the following variables in `Dockerfile` to the appropriate values:
 - For `ENV LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `ENV PASS=`, replace "okta_p@ssword" with your OKTA password
@@ -33,6 +31,7 @@ docker-compose down && docker-compose up -d
 Once complete, go to the [Apple Shortcut](#apple-shortcut) section to install the shortcut to your iPhone. 
 
 ## Native (Manual) Installation (Debian/Ubuntu, macOS, Windows):
+Download `CBORD_Manual.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest).
 Using `nano`, `vim`, or any other text editor, assign the following variables in `.env` to the appropriate values:
 - For `LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `PASS=`, replace "okta_p@ssword" with your OKTA password
