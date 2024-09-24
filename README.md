@@ -7,18 +7,19 @@ Any malicious use of this program is not the responsibility of the author. By do
 
 ## Docker Installation (Linux, macOS, Windows):
 Make sure you have Docker already installed on your device (that will be acting as the server). <br>
-Download `CBORD_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). Using `nano`, `vim`, or any other text editor, assign the following variables in `Dockerfile` to the appropriate values:
+Download `CBORD_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). To do this from the command line, copy the link address of `CBORD_Docker.zip` and use the following command:
+```bash
+wget paste_copied_link_here
+```
+Then, unzip the binary using the following command:
+```bash
+unzip CBORD_Docker.zip
+```
+Using `nano`, `vim`, or any other text editor, assign the following variables in `Dockerfile` to the appropriate values:
 - For `ENV LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `ENV PASS=`, replace "okta_p@ssword" with your OKTA password
 - For `LOGINURL=`, replace "https://cardadmin.iit.edu/login/ldap.php" with the login address for your CardAdmin interface
 - For `DOORURL=`, replace "https://cardadmin.iit.edu/student/openmydoor.php" with the open my door endpoint for your CardAdmin interface
-
-#### Optional:
-If you would like receive emails every time your door is unlocked, assign the following variables in `.env` to the appropriate values:
-- For `SENDER=`, replace "senderemail@gmail.com" with a sender Gmail to receive door unlock notifications from
-- For `APPPASS=`, replace "aaaa bbbb cccc dddd" with:
-    - Your Gmail password **(if you <u>ARE NOT</u> using 2FA)**
-    - A generated app password **(if you <u>ARE</u> using 2FA)**
 
 Open a terminal in the same directory as the `docker-compose.yml` file and install using the following command:
 ```bash
@@ -29,6 +30,13 @@ If you choose to change the environment variables later, make your edits, save, 
 docker-compose down && docker-compose up -d
 ```
 Once complete, go to the [Apple Shortcut](#apple-shortcut) section to install the shortcut to your iPhone. 
+
+#### Optional:
+If you would like receive emails every time your door is unlocked, assign the following variables in `.env` to the appropriate values:
+- For `SENDER=`, replace "senderemail@gmail.com" with a sender Gmail to receive door unlock notifications from
+- For `APPPASS=`, replace "aaaa bbbb cccc dddd" with:
+    - Your Gmail password **(if you <u>ARE NOT</u> using 2FA)**
+    - A generated app password **(if you <u>ARE</u> using 2FA)**
 
 ## Native (Manual) Installation (Debian/Ubuntu, macOS, Windows):
 Download `CBORD_Manual.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest).
