@@ -7,7 +7,7 @@ Any malicious use of this program is not the responsibility of the author. By do
 
 ## Docker Installation (Linux, macOS, Windows):
 Make sure you have Docker already installed on your device (that will be acting as the server). <br>
-Download `CBORD_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). To do this from the command line, copy the link address of `CBORD_Docker.zip` and use the following command:
+Download `CBORD_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). To do this from the command line, copy the link address of `CBORD_Docker.zip` and use the following command (be sure to replace `paste_copied_link_here` with the copied link):
 ```bash
 wget paste_copied_link_here
 ```
