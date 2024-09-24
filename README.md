@@ -23,11 +23,11 @@ Using `nano`, `vim`, or any other text editor, assign the following variables in
 
 Open a terminal in the same directory as the `docker-compose.yml` file and install using the following command:
 ```bash
-docker-compose up --build -d
+docker compose up --build -d
 ```
 If you choose to change the environment variables later, make your edits, save, then use the command:
 ```bash
-docker-compose down && docker-compose up -d
+docker compose down && docker-compose up -d
 ```
 Once complete, go to the [Apple Shortcut](#apple-shortcut) section to install the shortcut to your iPhone. 
 
