@@ -1,10 +1,6 @@
 # CBORD MobileID/CardAdmin Door Opener
 Due to this program's reliance on [Playwright](https://playwright.dev/python/), the recommended deployment method is through [Docker](#docker-installation-linux-macos-windows). The [Native (Manual) installation](#native-manual-installation-debianubuntu-macos-windows) is only compatible with Debian/Ubuntu, macOS, and Windows.
 
-## ⚠️DISCLAIMER:
-Any malicious use of this program is not the responsibility of the author. By downloading and using this program, you agree that you, and any other parties involved in your implementation of this program, are entirely responsible for its use/misuse. <br>
-**Please do not do stupid shit.** The goal of this program is to provide an alternate method of room access as a quality of life improvement. No malicious intent exists behind the development of this program. 
-
 ## Docker Installation (Linux, macOS, Windows):
 Make sure you have Docker already installed on your device (that will be acting as the server). <br>
 Download `CBORD_Docker.zip` from the [latest release](https://github.com/dekay7/CBORDDoorUnlock/releases/latest). To do this from the command line, copy the link address of `CBORD_Docker.zip` and use the following command (be sure to replace `paste_copied_link_here` with the copied link):
