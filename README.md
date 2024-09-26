@@ -15,8 +15,7 @@ unzip CBORD_Docker.zip
 Using `nano`, `vim`, or any other text editor, assign the following variables in `.env` to the appropriate values:
 - For `LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `PASS=`, replace "okta_p@ssword" with your OKTA password
-- For `LOGINURL=`, replace "https://cardadmin.iit.edu/login/ldap.php" with the login address for your CardAdmin interface
-- For `DOORURL=`, replace "https://cardadmin.iit.edu/student/openmydoor.php" with the open my door endpoint for your CardAdmin interface
+- For `CBORDURL=`, replace "https://cardadmin.iit.edu" with the login address for your CardAdmin interface
 
 Open a terminal in the same directory as the `docker-compose.yml` file and install using the following command:
 ```bash
@@ -40,8 +39,7 @@ Download `CBORD_Manual.zip` from the [latest release](https://github.com/dekay7/
 Using `nano`, `vim`, or any other text editor, assign the following variables in `.env` to the appropriate values:
 - For `LOGINUSER=`, replace "oktausername1" with your OKTA username
 - For `PASS=`, replace "okta_p@ssword" with your OKTA password
-- For `LOGINURL=`, replace "https://cardadmin.iit.edu/login/ldap.php" with the login address for your CardAdmin interface
-- For `DOORURL=`, replace "https://cardadmin.iit.edu/student/openmydoor.php" with the open my door endpoint for your CardAdmin interface
+- For `CBORDURL=`, replace "https://cardadmin.iit.edu" with the login address for your CardAdmin interface
 
 #### Optional:
 If you would like receive emails every time your door is unlocked, assign the following variables in `.env` to the appropriate values:

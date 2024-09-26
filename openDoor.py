@@ -12,12 +12,15 @@ class DoorModule:
     def __init__(self):
         # Setting variables when initialized
         self.env = load_dotenv()
-        self.login_url = os.getenv("LOGINURL")
-        self.open_door_url = os.getenv("DOORURL")
+        self.cbord_url = os.getenv("CBORDURL")
         self.username = os.getenv("LOGINUSER")
         self.password = os.getenv("PASS")
         self.sender = os.getenv("SENDER")
         self.app_pass = os.getenv("APPPASS")
+        self.login_url = self.cbord_url + "/login/ldap.php"
+        self.open_door_url = self.cbord_url + "/student/openmydoor.php"
+        self.log_out_url = self.cbord_url + "/logout.php?logout=1"
+        print(self.login_url, self.open_door_url, self.log_out_url)
         self.browser = None
         self.page = None
         self.context_manager = sync_playwright()
@@ -98,6 +101,15 @@ class DoorModule:
                 return True
             except Exception as e:
                 raise Exception("Error sending email:", str(e))
+        else:
+            return False
+
+    def log_out(self):
+        # Log out or deauthenticate the browser instance
+        print("Logging out")
+        self.page.goto(self.log_out_url, wait_until='load', timeout=0)
+        if "logged out." in self.page.content():
+            return True
         else:
             return False
 
